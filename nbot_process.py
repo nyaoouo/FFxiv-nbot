@@ -1,14 +1,14 @@
 from typing import Protocol
 
-from lib.se_string import ChatLog
+from nbot_lib.se_string import ChatLog
 
 
 class DoOutput(Protocol):
     def __call__(self, message: bytes | str, command: bytes | str = ...) -> None: pass
 
 
-#listen_channel_id = 27
-listen_channel_id = 56
+listen_channel_id = 27
+#listen_channel_id = 56
 
 data = {
     '$诗学': '''《诗学的用处》
@@ -28,4 +28,4 @@ data = {
 
 
 def process(args: list[str], chat_log: ChatLog, do_output: DoOutput):
-    if args[0] in data: do_output(data[args[0]].strip(), '/e')
+    if args[0] in data: do_output(data[args[0]].strip(), '/b')

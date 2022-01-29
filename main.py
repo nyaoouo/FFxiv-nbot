@@ -5,8 +5,8 @@ import threading
 import time
 import os
 
-from lib.memory import *
-from lib.memory.res.structure import DEFAULT_CODING
+from nbot_lib.memory import *
+from nbot_lib.memory.res.structure import DEFAULT_CODING
 
 game_execution = "ffxiv_dx11.exe"
 
@@ -92,7 +92,7 @@ from traceback import format_exc
 try:
     sys.path={sys.path}
     os.chdir(sys.path[0])
-    from lib import nbot
+    from nbot_lib import nbot
     nbot.run()
 except Exception as e:
     err_text=format_exc()
