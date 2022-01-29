@@ -2,7 +2,7 @@ from ctypes import *
 from traceback import format_exc
 
 from .hook import Hook
-from .memory import read_memory, write_string, read_ulonglong, read_int, BASE_ADDR
+from .memory import write_string, read_ulonglong, read_int, BASE_ADDR, read_string
 from .saint_coinach import item_sheet, item_names, realm, status_sheet
 from .text_pattern import find_signature_address, find_signature_point
 
@@ -156,11 +156,15 @@ class ExtraMacro:
 
         def hook_function(self, a1, a2):
             try:
-                cmd = read_memory(c_char * 50, a2[0]).value
+                cmd = read_string(a2[0], encode=None)
                 try:
                     end = cmd.find(b'>')
                 except ValueError:
                     return self.original(a1, a2)
+                if cmd[1] == 47:
+                    write_string(a2[0], cmd[:end].replace(b'</', b'<', 1) + cmd[end:])
+                    a2[0] += end
+                    return 0
                 ans = parse_macro(cmd[1:end].decode('utf8', 'ignore').split(' '))
                 if ans:
                     write_string(read_ulonglong(a1 + 136), ans)

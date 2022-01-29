@@ -8,7 +8,7 @@ class DoOutput(Protocol):
 
 
 listen_channel_id = 27
-#listen_channel_id = 56
+# listen_channel_id = 56
 
 data = {
     '$诗学': '''《诗学的用处》
